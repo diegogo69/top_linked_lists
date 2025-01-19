@@ -54,7 +54,8 @@ class LinkedList {
 
   // returns the last node in the list
   tail() {
-    // If head is null, there is no list. Throw error
+    if (this.headNode === null) return null
+
     let tmp = this.headNode;
 
     // If node reference null, it is the last node
@@ -67,6 +68,8 @@ class LinkedList {
 
   // returns the node at the given index
   at(index) {
+    if (this.headNode === null) throw 'Invalid action. List is empty';
+
     let tmp = this.headNode;
     let i = 0;
 
@@ -81,10 +84,8 @@ class LinkedList {
   // removes the last element from the list
   pop() {
     // If head is null, there is no list. Throw error
-    if (this.headNode === null) {
-      console.log("ERROR: There's no list");
-      return;
-    }
+    if (this.headNode === null) return;
+
 
     // If list has only one element
     if (this.headNode.nextNode === null) {
@@ -109,6 +110,8 @@ class LinkedList {
 
   // returns true if the passed in value is in the list and otherwise returns false.
   contains(value) {
+    if (this.headNode === null) return false;
+
     let tmp = this.headNode;
 
     while (tmp !== null) {
@@ -122,6 +125,8 @@ class LinkedList {
 
   // returns the index of the node containing value, or null if not found.
   find(value) {
+    if (this.headNode === null) return null
+
     let i = 0;
     let tmp = this.headNode;
 
@@ -139,7 +144,7 @@ class LinkedList {
   // so you can print them out and preview them in the console.
   // The format should be: ( value ) -> ( value ) -> ( value ) -> null
   toString() {
-    if (!this.head()) return "ERROR: No list";
+    if (this.headNode === null) return null;
 
     let str = "";
     let tmp = this.headNode;
@@ -158,10 +163,7 @@ class LinkedList {
   // that inserts a new node with the provided value at the given index.
   insertAt(value, index) {
     // If head is null, there is no list. Throw error
-    if (this.headNode === null) {
-      console.log("ERROR: There's no list");
-      return;
-    }
+    if (this.headNode === null) throw 'Invalid action. List is empty';
 
     let i = 0;
     let prev = null;
@@ -182,10 +184,7 @@ class LinkedList {
   // removes the node at the given index.
   removeAt(index) {
     // If head is null, there is no list. Throw error
-    if (this.headNode === null) {
-      console.log("ERROR: There's no list");
-      return;
-    }
+    if (this.headNode === null) throw 'Invalid action. List is empty';
 
     let i = 0;
     let prev = null;
