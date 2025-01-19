@@ -195,6 +195,7 @@ class LinkedList {
     while (tmp !== null && i !== index) {
       prev = tmp;
       tmp = tmp.nextNode;
+      i++;
     }
 
     // Reference node next to tmp
