@@ -11,7 +11,7 @@ class LinkedList {
     // HeadNode node reference new node
     this.headNode = node;
   }
-  
+
   // adds a new node containing value to the end of the list
   append(value) {
     const node = new Node(value);
@@ -21,7 +21,7 @@ class LinkedList {
       this.prepend(value);
       return;
     }
-        
+
     let tmp = this.headNode;
 
     while (tmp.nextNode !== null) {
@@ -74,22 +74,35 @@ class LinkedList {
       tmp = tmp.nextNode;
       i++;
     }
+
+    return tmp;
   }
 
   // removes the last element from the list
   pop() {
     // If head is null, there is no list. Throw error
-    let cur = null;
+    if (this.headNode === null) {
+      console.log("ERROR: There's no list");
+      return;
+    }
+
+    // If list has only one element
+    if (this.headNode.nextNode === null) {
+      this.headNode = null;
+      return;
+    }
+
+    let prev = null;
     let tmp = this.headNode;
 
     // If node reference null, it is the last node
-    while (tmp !== null) {
-      cur = tmp;
+    while (tmp.nextNode !== null) {
+      prev = tmp;
       tmp = tmp.nextNode;
     }
 
     // Do not reference last node in list anymore
-    cur.nextNode = null;
+    prev.nextNode = null;
     // Return removed node
     return tmp;
   }
@@ -99,7 +112,7 @@ class LinkedList {
     let tmp = this.headNode;
 
     while (tmp !== null) {
-      if (tmp === value) return true;
+      if (tmp.value === value) return true;
 
       tmp = tmp.nextNode;
     }
@@ -113,7 +126,7 @@ class LinkedList {
     let tmp = this.headNode;
 
     while (tmp !== null) {
-      if (tmp === value) return i;
+      if (tmp.value === value) return i;
 
       tmp = tmp.nextNode;
       i++;
@@ -126,6 +139,8 @@ class LinkedList {
   // so you can print them out and preview them in the console.
   // The format should be: ( value ) -> ( value ) -> ( value ) -> null
   toString() {
+    if (!this.head()) return "ERROR: No list";
+
     let str = "";
     let tmp = this.headNode;
 
@@ -138,6 +153,55 @@ class LinkedList {
     str += "null";
 
     return str;
+  }
+
+  // that inserts a new node with the provided value at the given index.
+  insertAt(value, index) {
+    // If head is null, there is no list. Throw error
+    if (this.headNode === null) {
+      console.log("ERROR: There's no list");
+      return;
+    }
+
+    let i = 0;
+    let prev = null;
+    let tmp = this.headNode;
+
+    // If node reference null, it is the last node
+    while (tmp !== null && i !== index) {
+      prev = tmp;
+      tmp = tmp.nextNode;
+      i++;
+    }
+
+    let node = new Node(value, tmp);
+    // Do not reference last node in list anymore
+    prev.nextNode = node;
+  }
+
+  // removes the node at the given index.
+  removeAt(index) {
+    // If head is null, there is no list. Throw error
+    if (this.headNode === null) {
+      console.log("ERROR: There's no list");
+      return;
+    }
+
+    let i = 0;
+    let prev = null;
+    let tmp = this.headNode;
+
+    // If node reference null, it is the last node
+    while (tmp !== null && i !== index) {
+      prev = tmp;
+      tmp = tmp.nextNode;
+    }
+
+    // Reference node next to tmp
+    prev.nextNode = tmp.nextNode;
+
+    // Return removed tmp node
+    return tmp;
   }
 }
 
